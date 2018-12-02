@@ -11,7 +11,8 @@ var ENERGY_DRAIN = 5 # energy lost per second
 var ENERGY_BERRY = 100.0 # energy gained per fruit
 var ENERGY_LEAF = 50.0 # energy gained per leaf
 
-var state = 'default';
+var state = 'default'
+var berry = null
 
 
 func _ready():
@@ -23,6 +24,9 @@ func _ready():
 	$directionTimer.wait_time = rand_range(1,4)
 
 	energy = rand_range(70, 99)
+
+	if randf() < 0.5:
+		$Sprite.flip_h = true
 
 	$BalloonSprite.hide()
 
@@ -40,9 +44,7 @@ func _physics_process(delta):
 	if position.x < -16:
 		position.x = width + 16
 	if position.y <= 0:
-		$BalloonSprite/AnimationPlayer.play("popping")
-		$AnimationPlayer.play("falling")
-
+		pop_balloon()
 
 	if state == 'flying':
 		velocity.x = 0;
@@ -54,13 +56,23 @@ func _physics_process(delta):
 
 	move_and_slide(motion, FLOOR_NORMAL)
 
-	find_berry()
+	# Check for berry collision
+	if get_slide_count():
+		var collider = get_slide_collision(0).collider
+		if collider.is_in_group('berries'):
+			pop_balloon()
+			get_berry(collider)
 
 	if is_on_floor():
 		if state == 'falling':
 			$AnimationPlayer.play("default")
 
-		energy -= ENERGY_DRAIN * delta
+		if berry:
+			eat()
+		else:
+			find_berry()
+			energy -= ENERGY_DRAIN * delta
+
 		if energy < 25.0:
 			modulate = Color(8, 1, 1)
 		elif energy < 70.0:
@@ -74,12 +86,24 @@ func _physics_process(delta):
 		die()
 
 
+func get_berry(b):
+	b.get_parent().remove_child(b)
+	b.position = Vector2(0, 16)
+	b.get_node("CollisionShape2D").disabled = true
+	b.remove_from_group('berries')
+	add_child(b)
+	berry = b
+
+
 func find_berry():
 	if state != 'default':
 		return
 
-	for berry in get_tree().get_nodes_in_group('berries'):
-		if berry.position.x > position.x - 8 and berry.position.x < position.x + 8:
+	if berry:
+		return
+
+	for b in get_tree().get_nodes_in_group('berries'):
+		if b.position.x > position.x - 8 and b.position.x < position.x + 8:
 			velocity.x = 0
 			$BalloonSprite.show()
 			$BalloonSprite/AnimationPlayer.play("inflating")
@@ -93,6 +117,15 @@ func die():
 	$AnimationPlayer.play("dying")
 	$AnimationPlayer.queue("dead")
 	$deathTimer.start()
+
+
+func eat():
+	if not $eatingTimer.is_stopped():
+		return
+
+	$AnimationPlayer.play("eating")
+	berry.eat()
+	$eatingTimer.start()
 
 
 func _on_deathTimer_timeout():
@@ -119,3 +152,20 @@ func _on_frog_animation_finished(anim_name):
 func _on_balloon_animation_finished(anim_name):
 	if anim_name == 'popping':
 		$BalloonSprite.hide()
+
+
+func pop_balloon():
+	$BalloonSprite/AnimationPlayer.play("popping")
+	$AnimationPlayer.play("falling")
+
+
+func _on_Control_gui_input(ev):
+	if ev is InputEventMouseButton:
+		if $BalloonSprite.visible and $BalloonSprite/AnimationPlayer.current_animation != 'popping':
+			pop_balloon()
+
+
+func _on_eatingTimer_timeout():
+	berry = null
+	$AnimationPlayer.play("default")
+	energy += ENERGY_BERRY

@@ -237,7 +237,7 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 4
-frame = 27
+frame = 12
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
@@ -273,7 +273,16 @@ wait_time = 1.0
 one_shot = false
 autostart = true
 
-[node name="BalloonSprite" type="Sprite" parent="." index="5"]
+[node name="eatingTimer" type="Timer" parent="." index="5" groups=[
+"frogs",
+]]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="BalloonSprite" type="Sprite" parent="." index="6"]
 
 position = Vector2( 0, -32 )
 texture = ExtResource( 3 )
@@ -294,12 +303,34 @@ anims/inflating = SubResource( 10 )
 anims/popping = SubResource( 12 )
 blend_times = [  ]
 
+[node name="Control" type="Control" parent="." index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -20.0
+margin_top = -64.0
+margin_right = 20.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Rect" ]
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_frog_animation_finished"]
 
 [connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
 
 [connection signal="timeout" from="directionTimer" to="." method="_on_directionTimer_timeout"]
 
+[connection signal="timeout" from="eatingTimer" to="." method="_on_eatingTimer_timeout"]
+
 [connection signal="animation_finished" from="BalloonSprite/AnimationPlayer" to="." method="_on_balloon_animation_finished"]
+
+[connection signal="gui_input" from="Control" to="." method="_on_Control_gui_input"]
 
 
