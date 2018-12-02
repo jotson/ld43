@@ -1,19 +1,10 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://default_theme.tres" type="Theme" id=1]
-[ext_resource path="res://start.gd" type="Script" id=2]
+[ext_resource path="res://instructions.gd" type="Script" id=2]
 [ext_resource path="res://textures/background.png" type="Texture" id=3]
-[ext_resource path="res://textures/LuckiestGuy-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://textures/frog.png" type="Texture" id=5]
-[ext_resource path="res://Berry.tscn" type="PackedScene" id=6]
-
-[sub_resource type="DynamicFont" id=14]
-
-size = 32
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 4 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+[ext_resource path="res://textures/frog.png" type="Texture" id=4]
+[ext_resource path="res://Berry.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -39,7 +30,7 @@ tracks/0/keys = {
 "values": [ 20, 23 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=3]
 
 resource_name = "clone"
 length = 0.4
@@ -58,9 +49,8 @@ tracks/0/keys = {
 "values": [ 32, 35 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource_name = "dead"
 length = 0.4
 loop = true
 step = 0.1
@@ -77,9 +67,8 @@ tracks/0/keys = {
 "values": [ 28, 31 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
-resource_name = "default"
 length = 0.4
 loop = true
 step = 0.1
@@ -96,9 +85,8 @@ tracks/0/keys = {
 "values": [ 0, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
-resource_name = "dying"
 length = 0.4
 loop = false
 step = 0.1
@@ -115,9 +103,8 @@ tracks/0/keys = {
 "values": [ 24, 27 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
-resource_name = "eating"
 length = 0.4
 loop = true
 step = 0.1
@@ -134,9 +121,8 @@ tracks/0/keys = {
 "values": [ 12, 15 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
-resource_name = "falling"
 length = 0.4
 loop = true
 step = 0.1
@@ -153,9 +139,8 @@ tracks/0/keys = {
 "values": [ 16, 19 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
-resource_name = "flying"
 length = 0.4
 loop = true
 step = 0.1
@@ -172,9 +157,8 @@ tracks/0/keys = {
 "values": [ 8, 11 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
-resource_name = "inflating"
 length = 0.4
 loop = false
 step = 0.1
@@ -191,7 +175,7 @@ tracks/0/keys = {
 "values": [ 4, 7 ]
 }
 
-[node name="main" type="Control"]
+[node name="Instructions" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -224,83 +208,63 @@ size_flags_vertical = 1
 texture = ExtResource( 3 )
 stretch_mode = 0
 
-[node name="StartBtn" type="Button" parent="." index="1"]
+[node name="Label" type="Label" parent="." index="1"]
 
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -68.0
-margin_top = -16.0
-margin_right = 67.0
-margin_bottom = 56.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Start"
-flat = false
-align = 1
-
-[node name="InstructionsButton" type="Button" parent="." index="2"]
-
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -68.0
-margin_top = 74.0
-margin_right = 67.0
-margin_bottom = 111.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "Instructions"
-flat = false
-align = 1
-
-[node name="Label" type="Label" parent="." index="3"]
-
-anchor_left = 0.5
-anchor_top = 0.0
-anchor_right = 0.5
-anchor_bottom = 0.0
-margin_left = -59.0
-margin_top = 150.0
-margin_right = 58.0
-margin_bottom = 255.0
+margin_left = -163.0
+margin_top = -203.0
+margin_right = 163.0
+margin_bottom = 154.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 14 )
-text = "Garden
-of
-Frogs"
+text = "Grow your colony of frogs by allowing them to eat fruits and leaves. Frogs create a clone when they eat.
+
+Pop balloons by clicking them to stop your frogs from overeating. Frogs who don't eat will die. But sometimes, sacrifices must be made.
+
+The tree will stop making fruit if it runs out of leaves.
+
+The game ends if all of your frogs die or your tree runs out of leaves.
+
+Try to make the biggest colony possible and survive the longest!"
 align = 1
+autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
 
-[node name="Frog" type="KinematicBody2D" parent="." index="4" groups=[
+[node name="BackButton" type="Button" parent="." index="2"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -68.0
+margin_top = -148.0
+margin_right = 67.0
+margin_bottom = -100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Back"
+flat = false
+align = 1
+
+[node name="Frog" type="KinematicBody2D" parent="." index="3" groups=[
 "frogs",
 ]]
 
@@ -318,7 +282,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="Frog" index="1"]
 
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 vframes = 9
 hframes = 4
 frame = 32
@@ -332,23 +296,21 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/busy = SubResource( 2 )
-anims/clone = SubResource( 13 )
-anims/dead = SubResource( 3 )
-anims/default = SubResource( 4 )
-anims/dying = SubResource( 5 )
-anims/eating = SubResource( 6 )
-anims/falling = SubResource( 7 )
-anims/flying = SubResource( 8 )
-anims/inflating = SubResource( 9 )
+anims/clone = SubResource( 3 )
+anims/dead = SubResource( 4 )
+anims/default = SubResource( 5 )
+anims/dying = SubResource( 6 )
+anims/eating = SubResource( 7 )
+anims/falling = SubResource( 8 )
+anims/flying = SubResource( 9 )
+anims/inflating = SubResource( 10 )
 blend_times = [  ]
 
-[node name="Berry" parent="." index="5" instance=ExtResource( 6 )]
+[node name="Berry" parent="." index="4" instance=ExtResource( 5 )]
 
 position = Vector2( 315, 86 )
 
-[connection signal="pressed" from="StartBtn" to="." method="_on_StartBtn_pressed"]
-
-[connection signal="pressed" from="InstructionsButton" to="." method="_on_InstructionsButton_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 
 [connection signal="animation_finished" from="Frog/AnimationPlayer" to="Frog" method="_on_frog_animation_finished"]
 

@@ -17,3 +17,5 @@ func reset():
 	deaths = 0
 	biggest_colony = 0
 	time = 0.0
+	leaves = 0
+	frogs = 0

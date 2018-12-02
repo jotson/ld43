@@ -258,13 +258,13 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 vframes = 9
 hframes = 4
-frame = 32
+frame = 35
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 
 root_node = NodePath("..")
-autoplay = ""
+autoplay = "default"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0

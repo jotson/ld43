@@ -8,6 +8,8 @@ var Frog = preload("res://Frog.tscn")
 func _ready():
 	randomize()
 
+	Game.reset()
+
 	var width = get_viewport().size.x
 	var height = get_viewport().size.y
 
@@ -37,6 +39,10 @@ func _process(delta):
 	find_node("LabelFrog").text = "Frogs: " + str(Game.frogs)
 	find_node("LabelTimer").text = "Time: " + str(round(Game.time))
 
+	if Game.leaves <= 0 or Game.frogs <= 0:
+		set_process(false)
+		get_tree().change_scene('res://gameover.tscn')
+
 
 func add_leaf():
 	var width = get_viewport().size.x
@@ -50,7 +56,8 @@ func add_leaf():
 
 func _on_leafGrowTimer_timeout():
 	if get_tree().get_nodes_in_group('leaves').size():
-		add_leaf()
+		if Game.leaves < 30:
+			add_leaf()
 
 
 func add_berry(ripen = false):
@@ -66,4 +73,9 @@ func add_berry(ripen = false):
 
 func _on_berryGrowTimer_timeout():
 	if get_tree().get_nodes_in_group('leaves').size():
-		add_berry()
+		var leaves = Game.leaves
+		var create = leaves - 15.0
+		if create < 1:
+			create = 1
+		for i in range(create):
+			add_berry()

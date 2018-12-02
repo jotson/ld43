@@ -66,7 +66,7 @@ func _physics_process(delta):
 	move_and_slide(motion, FLOOR_NORMAL)
 
 	# Check for berry collision
-	if get_slide_count() and state == 'flying':
+	if get_slide_count() and state != 'falling':
 		var collider = get_slide_collision(0).collider
 		if collider.is_in_group('berries') or collider.is_in_group('leaves'):
 			get_berry(collider)
@@ -130,7 +130,7 @@ func get_berry(b):
 	if b.is_in_group('leaves'):
 		b.remove_from_group('leaves')
 	add_child(b)
-	berry = b
+	berry = weakref(b)
 
 
 func find_berry():
@@ -156,7 +156,7 @@ func find_berry():
 			$AnimationPlayer.queue("flying")
 			break
 
-	if not found and energy < 50:
+	if not found and energy < 25:
 		for b in get_tree().get_nodes_in_group('leaves'):
 			if b.position.x > position.x - 8 and b.position.x < position.x + 8:
 				velocity.x = 0
@@ -183,7 +183,8 @@ func eat():
 		return
 
 	$AnimationPlayer.play("eating")
-	berry.eat()
+	if berry.get_ref():
+		berry.get_ref().eat()
 	$eatingTimer.start()
 
 
@@ -235,6 +236,11 @@ func pop_balloon():
 func _on_Control_gui_input(ev):
 	if ev is InputEventMouseButton:
 		if $BalloonSprite.visible and $BalloonSprite/AnimationPlayer.current_animation != 'popping':
+
+			var burst = Burst.instance()
+			burst.position = Vector2(0, -36)
+			add_child(burst)
+
 			pop_balloon()
 			$Control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 

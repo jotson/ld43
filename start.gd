@@ -2,8 +2,12 @@ extends Control
 
 
 func _ready():
-	pass
+	$Berry.ripen()
 
 
 func _on_StartBtn_pressed():
 	get_tree().change_scene("res://main.tscn")
+
+
+func _on_InstructionsButton_pressed():
+	get_tree().change_scene("res://instructions.tscn")
