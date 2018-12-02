@@ -73,9 +73,16 @@ func add_berry(ripen = false):
 
 func _on_berryGrowTimer_timeout():
 	if get_tree().get_nodes_in_group('leaves').size():
+		var berries = get_tree().get_nodes_in_group('berries').size()
+		if berries > 25:
+			return
+
 		var leaves = Game.leaves
-		var create = leaves - 15.0
+		var create = (leaves - 15.0) / 2.0
 		if create < 1:
 			create = 1
+		if create > 5:
+			create = 5
+
 		for i in range(create):
 			add_berry()

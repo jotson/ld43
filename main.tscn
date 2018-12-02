@@ -61,7 +61,7 @@ autostart = true
 [node name="leafGrowTimer" type="Timer" parent="." index="3"]
 
 process_mode = 1
-wait_time = 12.0
+wait_time = 20.0
 one_shot = false
 autostart = true
 
