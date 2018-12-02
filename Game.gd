@@ -4,6 +4,8 @@ var births = 0
 var deaths = 0
 var biggest_colony = 0
 var time = 0.0
+var leaves = 0
+var frogs = 0
 
 
 func _ready():

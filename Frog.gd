@@ -125,8 +125,10 @@ func get_berry(b):
 	b.get_parent().remove_child(b)
 	b.position = Vector2(0, 16)
 	b.get_node("CollisionShape2D").disabled = true
-	b.remove_from_group('berries')
-	b.remove_from_group('leaves')
+	if b.is_in_group('berries'):
+		b.remove_from_group('berries')
+	if b.is_in_group('leaves'):
+		b.remove_from_group('leaves')
 	add_child(b)
 	berry = b
 

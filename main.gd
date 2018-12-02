@@ -29,11 +29,12 @@ func _ready():
 func _process(delta):
 	Game.time += delta
 
-	var frogs = get_tree().get_nodes_in_group('frogs').size()
-	if frogs > Game.biggest_colony:
-		Game.biggest_colony = frogs
+	Game.frogs = get_tree().get_nodes_in_group('frogs').size()
+	if Game.frogs > Game.biggest_colony:
+		Game.biggest_colony = Game.frogs
+	Game.leaves = get_tree().get_nodes_in_group('leaves').size()
 
-	find_node("LabelFrog").text = "Frogs: " + str(frogs)
+	find_node("LabelFrog").text = "Frogs: " + str(Game.frogs)
 	find_node("LabelTimer").text = "Time: " + str(round(Game.time))
 
 
