@@ -191,7 +191,7 @@ tracks/0/keys = {
 "values": [ 4, 7 ]
 }
 
-[node name="main" type="Control"]
+[node name="main" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -231,9 +231,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -68.0
-margin_top = -16.0
+margin_top = -36.0
 margin_right = 67.0
-margin_bottom = 56.0
+margin_bottom = 36.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -256,9 +256,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -68.0
-margin_top = 74.0
+margin_top = 54.0
 margin_right = 67.0
-margin_bottom = 111.0
+margin_bottom = 91.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -281,9 +281,9 @@ anchor_top = 0.0
 anchor_right = 0.5
 anchor_bottom = 0.0
 margin_left = -59.0
-margin_top = 150.0
+margin_top = 140.0
 margin_right = 58.0
-margin_bottom = 255.0
+margin_bottom = 245.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -346,8 +346,110 @@ blend_times = [  ]
 
 position = Vector2( 315, 89 )
 
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="6"]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -129.0
+margin_top = -179.0
+margin_right = 129.0
+margin_bottom = -120.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+
+[node name="LDJAMLabel" type="Label" parent="VBoxContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 2.0
+margin_right = 258.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "LDJAM 43 compo"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 23.0
+margin_right = 258.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+
+[node name="yafdButton" type="LinkButton" parent="VBoxContainer/CenterContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 19.0
+margin_right = 238.0
+margin_bottom = 17.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 0
+shortcut = null
+group = null
+text = "Created by @yafd (Twitter)"
+
+[node name="githubButton" type="LinkButton" parent="VBoxContainer" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 44.0
+margin_right = 258.0
+margin_bottom = 61.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 0
+shortcut = null
+group = null
+text = "Source: github.com/jotson/ld43"
+
 [connection signal="pressed" from="StartBtn" to="." method="_on_StartBtn_pressed"]
 
 [connection signal="pressed" from="InstructionsButton" to="." method="_on_InstructionsButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/CenterContainer/yafdButton" to="." method="_on_yafdButton_pressed"]
+
+[connection signal="pressed" from="VBoxContainer/githubButton" to="." method="_on_githubButton_pressed"]
 
 
