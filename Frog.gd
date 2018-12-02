@@ -14,6 +14,8 @@ var ENERGY_LEAF = 50.0 # energy gained per leaf
 var state = 'default'
 var berry = null
 
+var Burst = preload("res://Burst.tscn")
+
 
 func _ready():
 	randomize()
@@ -29,6 +31,10 @@ func _ready():
 		$Sprite.flip_h = true
 
 	$BalloonSprite.hide()
+
+	var burst = Burst.instance()
+	burst.position = Vector2()
+	add_child(burst)
 
 	choose_direction()
 
@@ -57,7 +63,7 @@ func _physics_process(delta):
 	move_and_slide(motion, FLOOR_NORMAL)
 
 	# Check for berry collision
-	if get_slide_count():
+	if get_slide_count() and state == 'flying':
 		var collider = get_slide_collision(0).collider
 		if collider.is_in_group('berries'):
 			pop_balloon()
@@ -73,6 +79,8 @@ func _physics_process(delta):
 			find_berry()
 			energy -= ENERGY_DRAIN * delta
 
+		reproduce()
+
 		if energy < 25.0:
 			modulate = Color(8, 1, 1)
 		elif energy < 70.0:
@@ -84,6 +92,25 @@ func _physics_process(delta):
 		modulate = Color(1, 1, 1)
 		set_physics_process(false)
 		die()
+
+
+func reproduce():
+	if not $busyTimer.is_stopped():
+		return
+
+	if state != 'default':
+		return
+
+	if energy < 100:
+		return
+
+	velocity.x = 0
+	$AnimationPlayer.play("busy")
+	$busyTimer.start()
+
+
+func _on_busyTimer_timeout():
+	$AnimationPlayer.play("clone")
 
 
 func get_berry(b):
@@ -114,6 +141,7 @@ func find_berry():
 
 
 func die():
+	$BalloonSprite.hide()
 	$AnimationPlayer.play("dying")
 	$AnimationPlayer.queue("dead")
 	$deathTimer.start()
@@ -145,8 +173,22 @@ func choose_direction():
 	pass
 
 
+func _on_frog_animation_started(anim_name):
+	state = anim_name
+
+
 func _on_frog_animation_finished(anim_name):
-	pass
+	if anim_name == 'clone':
+		energy = energy / 2.0
+
+		var Frog = load("res://Frog.tscn")
+		var new_frog = Frog.instance()
+		get_parent().add_child(new_frog)
+		new_frog.position = position + Vector2(16, 0)
+
+		$AnimationPlayer.play("default")
+
+		choose_direction()
 
 
 func _on_balloon_animation_finished(anim_name):
