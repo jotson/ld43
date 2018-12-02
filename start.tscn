@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://start.gd" type="Script" id=2]
@@ -6,10 +6,12 @@
 [ext_resource path="res://textures/LuckiestGuy-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://textures/frog.png" type="Texture" id=5]
 [ext_resource path="res://Berry.tscn" type="PackedScene" id=6]
+[ext_resource path="res://sfx/ribit.wav" type="AudioStream" id=7]
+[ext_resource path="res://sfx/pop1.wav" type="AudioStream" id=8]
 
 [sub_resource type="DynamicFont" id=14]
 
-size = 32
+size = 64
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 4 )
@@ -230,10 +232,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -68.0
-margin_top = -36.0
-margin_right = 67.0
-margin_bottom = 36.0
+margin_left = -66.0
+margin_top = -56.0
+margin_right = 69.0
+margin_bottom = 16.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -256,9 +258,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -68.0
-margin_top = 54.0
+margin_top = 34.0
 margin_right = 67.0
-margin_bottom = 91.0
+margin_bottom = 71.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -280,27 +282,37 @@ anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
 anchor_bottom = 0.0
-margin_left = -59.0
-margin_top = 140.0
-margin_right = 58.0
-margin_bottom = 245.0
-rect_pivot_offset = Vector2( 0, 0 )
+margin_left = -135.0
+margin_top = 122.0
+margin_right = 135.0
+margin_bottom = 255.0
+rect_rotation = 0.586098
+rect_scale = Vector2( 1.08565, 1.08565 )
+rect_pivot_offset = Vector2( 135, 65 )
 rect_clip_content = false
-mouse_filter = 2
+mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 14 )
 text = "Garden
-of
-Frogs"
+of Frogs"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "Mouse", "custom_fonts" ]
 
-[node name="Frog" type="KinematicBody2D" parent="." index="4" groups=[
+[node name="Tween" type="Tween" parent="." index="4"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Frog" type="KinematicBody2D" parent="." index="5" groups=[
 "frogs",
 ]]
 
@@ -342,20 +354,36 @@ anims/flying = SubResource( 8 )
 anims/inflating = SubResource( 9 )
 blend_times = [  ]
 
-[node name="Berry" parent="." index="5" instance=ExtResource( 6 )]
+[node name="frogControl" type="Control" parent="Frog" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -20.0
+margin_top = -4.0
+margin_right = 20.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Mouse" ]
+
+[node name="Berry" parent="." index="6" instance=ExtResource( 6 )]
 
 position = Vector2( 315, 89 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." index="6"]
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="7"]
 
-anchor_left = 0.5
+anchor_left = 0.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -129.0
-margin_top = -179.0
-margin_right = 129.0
-margin_bottom = -120.0
+margin_top = -216.0
+margin_bottom = -96.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -370,16 +398,18 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 2.0
-margin_right = 258.0
-margin_bottom = 19.0
+margin_top = 10.0
+margin_right = 360.0
+margin_bottom = 67.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-text = "LDJAM 43 compo"
+text = "LDJAM 43 compo
+\"Sacrifices must be made\"
+Made with Godot Engine 3"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -391,9 +421,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 23.0
-margin_right = 258.0
-margin_bottom = 40.0
+margin_top = 71.0
+margin_right = 360.0
+margin_bottom = 88.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -408,8 +438,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 19.0
-margin_right = 238.0
+margin_left = 70.0
+margin_right = 289.0
 margin_bottom = 17.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -423,15 +453,32 @@ shortcut = null
 group = null
 text = "Created by @yafd (Twitter)"
 
-[node name="githubButton" type="LinkButton" parent="VBoxContainer" index="2"]
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 44.0
-margin_right = 258.0
-margin_bottom = 61.0
+margin_top = 92.0
+margin_right = 360.0
+margin_bottom = 109.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+
+[node name="githubButton" type="LinkButton" parent="VBoxContainer/CenterContainer2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 51.0
+margin_right = 309.0
+margin_bottom = 17.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -444,12 +491,40 @@ shortcut = null
 group = null
 text = "Source: github.com/jotson/ld43"
 
+[node name="sfxRibit" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 7 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Fx"
+
+[node name="sfxPop" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = ExtResource( 8 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Fx"
+
 [connection signal="pressed" from="StartBtn" to="." method="_on_StartBtn_pressed"]
 
 [connection signal="pressed" from="InstructionsButton" to="." method="_on_InstructionsButton_pressed"]
 
+[connection signal="mouse_entered" from="Label" to="." method="_on_Label_mouse_entered"]
+
+[connection signal="mouse_exited" from="Label" to="." method="_on_Label_mouse_exited"]
+
+[connection signal="gui_input" from="Frog/frogControl" to="." method="_on_frogControl_gui_input"]
+
+[connection signal="mouse_entered" from="Frog/frogControl" to="." method="_on_frogControl_mouse_entered"]
+
+[connection signal="mouse_exited" from="Frog/frogControl" to="." method="_on_frogControl_mouse_exited"]
+
 [connection signal="pressed" from="VBoxContainer/CenterContainer/yafdButton" to="." method="_on_yafdButton_pressed"]
 
-[connection signal="pressed" from="VBoxContainer/githubButton" to="." method="_on_githubButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/CenterContainer2/githubButton" to="." method="_on_githubButton_pressed"]
 
 
