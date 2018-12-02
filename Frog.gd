@@ -38,6 +38,8 @@ func _ready():
 
 	choose_direction()
 
+	Game.births += 1
+
 
 func _physics_process(delta):
 	var width = get_viewport().size.x
@@ -55,6 +57,7 @@ func _physics_process(delta):
 	if state == 'flying':
 		velocity.x = 0;
 		velocity.y = -50;
+		$Control.mouse_filter = Control.MOUSE_FILTER_STOP
 	else:
 		velocity.y += GRAVITY * delta;
 
@@ -65,13 +68,13 @@ func _physics_process(delta):
 	# Check for berry collision
 	if get_slide_count() and state == 'flying':
 		var collider = get_slide_collision(0).collider
-		if collider.is_in_group('berries'):
-			pop_balloon()
+		if collider.is_in_group('berries') or collider.is_in_group('leaves'):
 			get_berry(collider)
 
 	if is_on_floor():
 		if state == 'falling':
 			$AnimationPlayer.play("default")
+			$flyTimer.start()
 
 		if berry:
 			eat()
@@ -114,10 +117,16 @@ func _on_busyTimer_timeout():
 
 
 func get_berry(b):
+	if b.get_node("AnimationPlayer").current_animation != "default":
+		return
+
+	pop_balloon()
+
 	b.get_parent().remove_child(b)
 	b.position = Vector2(0, 16)
 	b.get_node("CollisionShape2D").disabled = true
 	b.remove_from_group('berries')
+	b.remove_from_group('leaves')
 	add_child(b)
 	berry = b
 
@@ -129,8 +138,14 @@ func find_berry():
 	if berry:
 		return
 
+	if not $flyTimer.is_stopped():
+		return
+
+	var found = false
+
 	for b in get_tree().get_nodes_in_group('berries'):
-		if b.position.x > position.x - 8 and b.position.x < position.x + 8:
+		if b.get_node("AnimationPlayer").current_animation == "default" and b.position.x > position.x - 8 and b.position.x < position.x + 8:
+			found = true
 			velocity.x = 0
 			$BalloonSprite.show()
 			$BalloonSprite/AnimationPlayer.play("inflating")
@@ -139,12 +154,26 @@ func find_berry():
 			$AnimationPlayer.queue("flying")
 			break
 
+	if not found and energy < 50:
+		for b in get_tree().get_nodes_in_group('leaves'):
+			if b.position.x > position.x - 8 and b.position.x < position.x + 8:
+				velocity.x = 0
+				$BalloonSprite.show()
+				$BalloonSprite/AnimationPlayer.play("inflating")
+				$BalloonSprite/AnimationPlayer.queue("default")
+				$AnimationPlayer.play("inflating")
+				$AnimationPlayer.queue("flying")
+				break
+
 
 func die():
 	$BalloonSprite.hide()
 	$AnimationPlayer.play("dying")
 	$AnimationPlayer.queue("dead")
 	$deathTimer.start()
+	remove_from_group('frogs')
+
+	Game.deaths += 1
 
 
 func eat():
@@ -205,6 +234,7 @@ func _on_Control_gui_input(ev):
 	if ev is InputEventMouseButton:
 		if $BalloonSprite.visible and $BalloonSprite/AnimationPlayer.current_animation != 'popping':
 			pop_balloon()
+			$Control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
 func _on_eatingTimer_timeout():

@@ -64,6 +64,23 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 4, 7 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "disable_collision"
+}, {
+"args": [  ],
+"method": "enable_collision"
+} ]
+}
 
 [node name="Berry" type="KinematicBody2D" groups=[
 "berries",
@@ -85,6 +102,7 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 4
+frame = 7
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]

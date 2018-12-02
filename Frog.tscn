@@ -237,7 +237,9 @@ tracks/0/keys = {
 "values": [ 8, 11 ]
 }
 
-[node name="Frog" type="KinematicBody2D" index="0"]
+[node name="Frog" type="KinematicBody2D" index="0" groups=[
+"frogs",
+]]
 
 input_pickable = false
 collision_layer = 1
@@ -256,7 +258,7 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 vframes = 9
 hframes = 4
-frame = 35
+frame = 32
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
@@ -284,34 +286,35 @@ wait_time = 6.0
 one_shot = true
 autostart = false
 
-[node name="directionTimer" type="Timer" parent="." index="4" groups=[
-"frogs",
-]]
+[node name="directionTimer" type="Timer" parent="." index="4"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = true
 
-[node name="eatingTimer" type="Timer" parent="." index="5" groups=[
-"frogs",
-]]
+[node name="eatingTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="busyTimer" type="Timer" parent="." index="6" groups=[
-"frogs",
-]]
+[node name="busyTimer" type="Timer" parent="." index="6"]
 
 process_mode = 1
 wait_time = 3.0
 one_shot = true
 autostart = false
 
-[node name="BalloonSprite" type="Sprite" parent="." index="7"]
+[node name="flyTimer" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+
+[node name="BalloonSprite" type="Sprite" parent="." index="8"]
 
 position = Vector2( 0, -32 )
 texture = ExtResource( 3 )
@@ -332,7 +335,7 @@ anims/inflating = SubResource( 10 )
 anims/popping = SubResource( 12 )
 blend_times = [  ]
 
-[node name="Control" type="Control" parent="." index="8"]
+[node name="Control" type="Control" parent="." index="9"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -348,7 +351,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
+_sections_unfolded = [ "Mouse" ]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_frog_animation_finished"]
 
