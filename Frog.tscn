@@ -237,7 +237,7 @@ tracks/0/keys = {
 "values": [ 8, 11 ]
 }
 
-[node name="Frog" type="KinematicBody2D" groups=[
+[node name="Frog" type="KinematicBody2D" index="0" groups=[
 "frogs",
 ]]
 

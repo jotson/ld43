@@ -66,7 +66,7 @@ func _physics_process(delta):
 	move_and_slide(motion, FLOOR_NORMAL)
 
 	# Check for berry collision
-	if get_slide_count() and state != 'falling':
+	if get_slide_count() and state == 'flying':
 		var collider = get_slide_collision(0).collider
 		if collider.is_in_group('berries') or collider.is_in_group('leaves'):
 			get_berry(collider)
@@ -183,7 +183,7 @@ func eat():
 		return
 
 	$AnimationPlayer.play("eating")
-	if berry.get_ref():
+	if berry and berry.get_ref():
 		berry.get_ref().eat()
 	$eatingTimer.start()
 

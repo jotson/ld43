@@ -189,7 +189,7 @@ tracks/0/keys = {
 "values": [ 4, 7 ]
 }
 
-[node name="GameOver" type="Control"]
+[node name="GameOver" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -375,9 +375,5 @@ anims/inflating = SubResource( 12 )
 blend_times = [  ]
 
 [connection signal="pressed" from="RetryButton" to="." method="_on_RetryButton_pressed"]
-
-[connection signal="animation_finished" from="Frog/AnimationPlayer" to="Frog" method="_on_frog_animation_finished"]
-
-[connection signal="animation_started" from="Frog/AnimationPlayer" to="Frog" method="_on_frog_animation_started"]
 
 
