@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Berry.gd" type="Script" id=1]
 [ext_resource path="res://textures/berry.png" type="Texture" id=2]
+[ext_resource path="res://sfx/berry_appear.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -117,6 +118,17 @@ anims/default = SubResource( 2 )
 anims/eating = SubResource( 3 )
 anims/growing = SubResource( 4 )
 blend_times = [  ]
+
+[node name="sfxAppear" type="AudioStreamPlayer2D" parent="." index="3"]
+
+stream = ExtResource( 3 )
+volume_db = -10.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 

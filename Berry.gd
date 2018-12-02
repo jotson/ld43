@@ -15,6 +15,8 @@ func _ready():
 	burst.position = Vector2()
 	add_child(burst)
 
+	$sfxAppear.play()
+
 
 func ripen():
 	$AnimationPlayer.play("default")

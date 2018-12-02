@@ -189,7 +189,7 @@ tracks/0/keys = {
 "values": [ 4, 7 ]
 }
 
-[node name="GameOver" type="Control" index="0"]
+[node name="GameOver" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0

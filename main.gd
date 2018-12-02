@@ -14,12 +14,13 @@ func _ready():
 	var height = get_viewport().size.y
 
 	# Add leaves
-	for i in range(16):
-		add_leaf()
+	add_leaf()
+	for i in range(15):
+		$AnimationPlayer.queue("add_leaf")
 
 	# Add berries
 	for i in range(10):
-		add_berry(true)
+		$AnimationPlayer.queue("add_berry")
 
 	# Add frogs
 	for i in range(3):

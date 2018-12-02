@@ -8,9 +8,12 @@ func _ready():
 
 	$AnimationPlayer.queue("default")
 
-	$Tween.interpolate_property(self, 'scale', Vector2(0, 0), Vector2(1.5, 1.5), 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN)
-	$Tween.interpolate_property(self, 'scale', Vector2(1.5, 1.5), Vector2(1, 1), 0.5, Tween.TRANS_ELASTIC, Tween.EASE_OUT, 0.5)
+	scale = Vector2(0,0)
+	$Tween.interpolate_property(self, 'scale', Vector2(0.0, 0.0), Vector2(1.5, 1.5), 0.3, Tween.TRANS_CIRC, Tween.EASE_IN)
+	$Tween.interpolate_property(self, 'scale', Vector2(1.5, 1.5), Vector2(1, 1), 0.5, Tween.TRANS_BOUNCE, Tween.EASE_OUT, 0.3)
 	$Tween.start()
+
+	$sfxAppear.play()
 
 
 func ripen():

@@ -113,6 +113,7 @@ func reproduce():
 
 
 func _on_busyTimer_timeout():
+	$sfxRibit.play()
 	$AnimationPlayer.play("clone")
 
 
@@ -149,6 +150,7 @@ func find_berry():
 		if b.get_node("AnimationPlayer").current_animation == "default" and b.position.x > position.x - 8 and b.position.x < position.x + 8:
 			found = true
 			velocity.x = 0
+			$sfxInflate.play()
 			$BalloonSprite.show()
 			$BalloonSprite/AnimationPlayer.play("inflating")
 			$BalloonSprite/AnimationPlayer.queue("default")
@@ -161,6 +163,7 @@ func find_berry():
 			if b.position.x > position.x - 8 and b.position.x < position.x + 8:
 				velocity.x = 0
 				$BalloonSprite.show()
+				$sfxInflate.play()
 				$BalloonSprite/AnimationPlayer.play("inflating")
 				$BalloonSprite/AnimationPlayer.queue("default")
 				$AnimationPlayer.play("inflating")
@@ -182,6 +185,7 @@ func eat():
 	if not $eatingTimer.is_stopped():
 		return
 
+	$sfxNom.play()
 	$AnimationPlayer.play("eating")
 	if berry and berry.get_ref():
 		berry.get_ref().eat()
@@ -229,6 +233,10 @@ func _on_balloon_animation_finished(anim_name):
 
 
 func pop_balloon():
+	var pop = floor(randf() * 5) + 1
+	if pop > 5:
+		pop = 5
+	get_node("sfxPop" + str(pop)).play()
 	$BalloonSprite/AnimationPlayer.play("popping")
 	$AnimationPlayer.play("falling")
 
