@@ -54,3 +54,11 @@ func ribit():
 	$sfxRibit.play()
 	$Tween.interpolate_property($Frog/Sprite, 'scale', Vector2(2,1), Vector2(1,1), 1.0, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
 	$Tween.start()
+
+
+func _on_MusicButton_pressed():
+	var bus = AudioServer.get_bus_index("Music")
+	if AudioServer.is_bus_mute(bus):
+		AudioServer.set_bus_mute(bus, false)
+	else:
+		AudioServer.set_bus_mute(bus, true)
