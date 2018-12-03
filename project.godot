@@ -10,7 +10,7 @@ config_version=3
 
 [application]
 
-config/name="ld43"
+config/name="ld43 Garden of Frogs"
 run/main_scene="res://start.tscn"
 config/icon="res://icon.png"
 

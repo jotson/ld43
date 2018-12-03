@@ -9,7 +9,7 @@
 [ext_resource path="res://sfx/ribit.wav" type="AudioStream" id=7]
 [ext_resource path="res://sfx/pop1.wav" type="AudioStream" id=8]
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=1]
 
 size = 64
 use_mipmaps = false
@@ -17,14 +17,13 @@ use_filter = false
 font_data = ExtResource( 4 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 13, 16 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource_name = "busy"
 length = 0.4
 loop = true
 step = 0.1
@@ -41,7 +40,7 @@ tracks/0/keys = {
 "values": [ 20, 23 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=4]
 
 resource_name = "clone"
 length = 0.4
@@ -60,9 +59,8 @@ tracks/0/keys = {
 "values": [ 32, 35 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 
-resource_name = "dead"
 length = 0.4
 loop = true
 step = 0.1
@@ -79,9 +77,8 @@ tracks/0/keys = {
 "values": [ 28, 31 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 
-resource_name = "default"
 length = 0.4
 loop = true
 step = 0.1
@@ -98,9 +95,8 @@ tracks/0/keys = {
 "values": [ 0, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=7]
 
-resource_name = "dying"
 length = 0.4
 loop = false
 step = 0.1
@@ -117,9 +113,8 @@ tracks/0/keys = {
 "values": [ 24, 27 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 
-resource_name = "eating"
 length = 0.4
 loop = true
 step = 0.1
@@ -136,9 +131,8 @@ tracks/0/keys = {
 "values": [ 12, 15 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 
-resource_name = "falling"
 length = 0.4
 loop = true
 step = 0.1
@@ -155,9 +149,8 @@ tracks/0/keys = {
 "values": [ 16, 19 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 
-resource_name = "flying"
 length = 0.4
 loop = true
 step = 0.1
@@ -174,9 +167,8 @@ tracks/0/keys = {
 "values": [ 8, 11 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 
-resource_name = "inflating"
 length = 0.4
 loop = false
 step = 0.1
@@ -336,7 +328,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 1 )
 text = "Garden
 of Frogs"
 align = 1
@@ -368,7 +360,7 @@ _sections_unfolded = [ "Collision", "collision" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Frog" index="0"]
 
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="Frog" index="1"]
 
@@ -385,15 +377,15 @@ autoplay = "default"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/busy = SubResource( 2 )
-anims/clone = SubResource( 13 )
-anims/dead = SubResource( 3 )
-anims/default = SubResource( 4 )
-anims/dying = SubResource( 5 )
-anims/eating = SubResource( 6 )
-anims/falling = SubResource( 7 )
-anims/flying = SubResource( 8 )
-anims/inflating = SubResource( 9 )
+anims/busy = SubResource( 3 )
+anims/clone = SubResource( 4 )
+anims/dead = SubResource( 5 )
+anims/default = SubResource( 6 )
+anims/dying = SubResource( 7 )
+anims/eating = SubResource( 8 )
+anims/falling = SubResource( 9 )
+anims/flying = SubResource( 10 )
+anims/inflating = SubResource( 11 )
 blend_times = [  ]
 
 [node name="frogControl" type="Control" parent="Frog" index="3"]
